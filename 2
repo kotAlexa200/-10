@@ -1,0 +1,65 @@
+public class Employee
+{
+    
+    private string name;
+    private decimal salary;
+
+    
+    public string Name
+    {
+        get => name;
+        set => name = value ?? throw new ArgumentNullException(nameof(value), "Имя не может быть пустым");
+    }
+
+    public decimal Salary
+    {
+        get => salary;
+        set
+        {
+            if (value < 0 || value > 1_000_000)
+                throw new ArgumentOutOfRangeException(nameof(value), "Зарплата должна быть от 0 до 1_000_000");
+            salary = value;
+        }
+    }
+
+    public Employee(string name) : this(name, 50000)
+    {
+    }
+
+     
+    public Employee(string name, decimal salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    
+    public void Work()
+    {
+        Console.WriteLine($"{Name} работает, зарплата: {Salary}.");
+    }
+}
+    class Program
+    {
+        static void Main()
+        {
+
+            Employee emp1 = new Employee("Иван");
+            Employee emp2 = new Employee("Анна", 75000);
+
+
+            emp1.Work();
+            emp2.Work();
+
+            try
+            {
+
+                emp1.Salary = -1000;
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+    }
+}
