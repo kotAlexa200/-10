@@ -1,0 +1,80 @@
+public class Device
+{
+    
+    private string brand;
+
+    
+    public string Brand
+    {
+        get { return brand; }
+    }
+
+    
+    public Device(string brand)
+    {
+        this.brand = brand;
+    }
+
+   
+    public void PowerOn()
+    {
+        Console.WriteLine($"{brand} включён.");
+    }
+}
+
+public class Laptop : Device
+{
+     
+    private int ram;
+    private int battery;
+
+   
+    public int Ram
+    {
+        get { return ram; }
+        set
+        {
+            if (value >= 1 && value <= 64)
+                ram = value;
+            else
+                throw new ArgumentException("ОЗУ должно быть от 1 до 64 ГБ");
+        }
+    }
+
+    public int Battery
+    {
+        get { return battery; }
+        set
+        {
+            if (value >= 0 && value <= 100)
+                battery = value;
+            else
+                throw new ArgumentException("Заряд должен быть от 0 до 100%");
+        }
+    }
+
+   
+    public Laptop(string brand, int ram, int battery) : base(brand)
+    {
+        Ram = ram;
+        Battery = battery;
+    }
+
+    public void Work()
+    {
+        Console.WriteLine($"Ноутбук {Brand}, ОЗУ: {Ram} ГБ, заряд: {Battery}%");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+       
+        Laptop laptop = new Laptop("Lenovo", 16, 85);
+
+         
+        laptop.PowerOn();
+        laptop.Work();
+    }
+}
